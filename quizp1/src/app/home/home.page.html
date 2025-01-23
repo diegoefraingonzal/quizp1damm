@@ -1,20 +1,69 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Eventos del Efra</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  
+  
+  <form [formGroup]="eventForm" (ngSubmit)="saveEvent()">
+    <div>
+      <label>Evento:</label>
+      <input formControlName="eventName">
+    </div>
+    <div>
+      <label>Ubicación:</label>
+      <input formControlName="location">
+    </div>
+    <div>
+      <label>Encargado:</label>
+      <input formControlName="managerName">
+    </div>
+    <div>
+      <label>Teléfono:</label>
+      <input formControlName="managerPhone">
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <div>
+      <label>Fecha inicio:</label>
+      <input type="date" formControlName="startDate">
+    </div>
+
+    <div>
+      <label>Fecha fin:</label>
+      <input type="date" formControlName="endDate">
+    </div>
+
+    <button type="submit" [disabled]="eventForm.invalid">Agregar Evento</button>
+  </form>
+
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Evento</th>
+        <th>Ubicación</th>
+        <th>Encargado</th>
+        <th>Teléfono</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+        <th>Confirmar Evento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events; let i = index">
+        <td>{{ event.eventName }}</td>
+        <td>{{ event.location }}</td>
+        <td>{{ event.managerName }}</td>
+        <td>{{ event.managerPhone }}</td>
+        <td>{{ event.startDate }}</td>
+        <td>{{ event.endDate }}</td>
+        <td>
+          <input type="checkbox" [(ngModel)]="event.isConfirmed" (change)="confirmEvent(i)">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </ion-content>
